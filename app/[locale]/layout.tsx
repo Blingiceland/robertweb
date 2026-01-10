@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Locale, locales, getTranslations } from "@/lib/i18n";
+import { Locale, locales, getTranslations, defaultLocale } from "@/lib/i18n";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,11 +18,15 @@ export function generateStaticParams() {
 
 interface LayoutProps {
     children: React.ReactNode;
-    params: Promise<{ locale: Locale }>;
+    params: Promise<{ locale: string }>;
 }
 
 export default async function LocaleLayout({ children, params }: LayoutProps) {
-    const { locale } = await params;
+    const { locale: localeParam } = await params;
+    // Validate and cast locale
+    const locale: Locale = locales.includes(localeParam as Locale)
+        ? (localeParam as Locale)
+        : defaultLocale;
     const t = getTranslations(locale);
 
     return (
