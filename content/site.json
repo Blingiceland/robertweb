@@ -1,0 +1,137 @@
+{
+    "about": {
+        "is": {
+            "title": "Um Róbert Ragnarsson",
+            "paragraphs": [
+                "Ég er sérfræðingur í stjórnsýslu með rekstur sveitarfélaga sem sérsvið. Ég hef verið bæjarstjóri, stofnað og rekið eigið fyrirtæki og verið meðeigandi í stærsta ráðgjafarfyrirtæki landsins. Ég hef unnið með fólki úr öllum flokkum við að straumlínulaga rekstur, bæta þjónustu og efla samfélög. Meðal annars fyrir Reykjavíkurborg.",
+                "Alltof oft stranda góðar hugmyndir og komast ekki til framkvæmda. Óþreyja mín fyrir því hefur vaxið og nú vil ég stíga inn á pólitíska sviðið, taka ábyrgð, ná góðum árangri og auka traust til borgarstjórnar.",
+                "Reynsla mín af því að leiða fólk saman og finna sameiginlegar lausnir mun bæta rekstur borgarinnar og skila peningum í þjónustuna sem við viljum fá."
+            ]
+        },
+        "en": {
+            "title": "About Róbert Ragnarsson",
+            "paragraphs": [
+                "I am a specialist in public administration with municipal management as my area of expertise. I have been a mayor, founded and run my own company, and been a partner in the largest consulting firm in the country. I have worked with people from all political parties to streamline operations, improve services, and strengthen communities. Including for Reykjavík City.",
+                "Too often good ideas get stuck and are never implemented. My impatience with this has grown and now I want to enter the political arena, take responsibility, achieve good results, and increase trust in city government.",
+                "My experience in bringing people together and finding common solutions will improve city operations and return money to the services we want."
+            ]
+        },
+        "pl": {
+            "title": "O Róbercie Ragnarsonie",
+            "paragraphs": [
+                "Jestem specjalistą w administracji publicznej ze specjalizacją w zarządzaniu gminami. Byłem burmistrzem, założyłem i prowadziłem własną firmę oraz byłem współwłaścicielem największej firmy konsultingowej w kraju. Pracowałem z ludźmi ze wszystkich partii politycznych nad usprawnieniem działalności, poprawą usług i wzmocnieniem społeczności. W tym dla miasta Reykjavik.",
+                "Zbyt często dobre pomysły utykają w martwym punkcie i nigdy nie są realizowane. Moja niecierpliwość z tego powodu wzrosła i teraz chcę wejść na arenę polityczną, wziąć odpowiedzialność, osiągnąć dobre wyniki i zwiększyć zaufanie do władz miasta.",
+                "Moje doświadczenie w łączeniu ludzi i znajdowaniu wspólnych rozwiązań poprawi funkcjonowanie miasta i przywróci pieniądze na usługi, których oczekujemy."
+            ]
+        }
+    },
+    "policy": {
+        "is": {
+            "title": "Stefnuyfirlýsing",
+            "intro": [
+                "Ég bjóð fram til borgarstjórnar Reykjavíkur af því að ég vil sjá betur rekna borg sem bætir þjónustu við íbúa og eflir bæði nærsamfélag og lífsgæði.",
+                "Ég hef reynslu af því að leiða stofnanir og fyrirtæki og ég veit hvernig má ná árangri þegar vilji er fyrir hendi. Mín reynsla og þekking nýtist vel í borgarstjórn.",
+                "Ég hef skýra sýn á hvernig við getum gert betur – og ég er tilbúinn að taka ábyrgð á því að hrinda henni í framkvæmd."
+            ],
+            "highlight": "Með samvinnu og skýra sýn getum við gert Reykjavík að enn betri stað til að búa, vinna og vaxa."
+        },
+        "en": {
+            "title": "Policy Statement",
+            "intro": [
+                "I am running for Reykjavík City Council because I want to see a better-run city that improves services for residents and strengthens both local communities and quality of life.",
+                "I have experience leading institutions and companies and I know how to achieve results when there is will. My experience and knowledge will serve well in city government.",
+                "I have a clear vision of how we can do better – and I am ready to take responsibility for making it happen."
+            ],
+            "highlight": "With cooperation and a clear vision, we can make Reykjavík an even better place to live, work, and grow."
+        },
+        "pl": {
+            "title": "Program Wyborczy",
+            "intro": [
+                "Kandyduję do Rady Miasta Reykjavíku, ponieważ chcę zobaczyć lepiej zarządzane miasto, które poprawia usługi dla mieszkańców i wzmacnia zarówno lokalne społeczności, jak i jakość życia.",
+                "Mam doświadczenie w kierowaniu instytucjami i firmami i wiem, jak osiągać wyniki, gdy jest wola. Moje doświadczenie i wiedza dobrze przysłużą się w zarządzaniu miastem.",
+                "Mam jasną wizję tego, jak możemy robić rzeczy lepiej – i jestem gotowy wziąć odpowiedzialność za jej realizację."
+            ],
+            "highlight": "Dzięki współpracy i jasnej wizji możemy uczynić Reykjavík jeszcze lepszym miejscem do życia, pracy i rozwoju."
+        }
+    },
+    "visionCards": {
+        "is": [
+            {
+                "id": "1",
+                "icon": "🎯",
+                "title": "Skilvirkari rekstur",
+                "text": "Betri nýting fjármuna og skýrari ábyrgð í rekstri borgarinnar."
+            },
+            {
+                "id": "2",
+                "icon": "👨‍👩‍👧‍👦",
+                "title": "Dagvistun fyrir alla",
+                "text": "Nægt framboð af leikskólaplássum og sveigjanlegar dagvistunarlausnir."
+            },
+            {
+                "id": "3",
+                "icon": "🏡",
+                "title": "Húsnæði og hverfi",
+                "text": "Fjölbreytt og hagkvæmt húsnæði í öllum hverfum borgarinnar."
+            },
+            {
+                "id": "4",
+                "icon": "🚌",
+                "title": "Samgöngur sem virka",
+                "text": "Bætt almenningssamgöngur og greiðari umferðarflæði."
+            }
+        ],
+        "en": [
+            {
+                "id": "1",
+                "icon": "🎯",
+                "title": "More Efficient Operations",
+                "text": "Better use of funds and clearer accountability in city operations."
+            },
+            {
+                "id": "2",
+                "icon": "👨‍👩‍👧‍👦",
+                "title": "Daycare for Everyone",
+                "text": "Sufficient supply of preschool spots and flexible daycare solutions."
+            },
+            {
+                "id": "3",
+                "icon": "🏡",
+                "title": "Housing and Neighborhoods",
+                "text": "Diverse and affordable housing in all city neighborhoods."
+            },
+            {
+                "id": "4",
+                "icon": "🚌",
+                "title": "Transportation That Works",
+                "text": "Improved public transport and smoother traffic flow."
+            }
+        ],
+        "pl": [
+            {
+                "id": "1",
+                "icon": "🎯",
+                "title": "Sprawniejsze zarządzanie",
+                "text": "Lepsze wykorzystanie środków i jaśniejsza odpowiedzialność w działaniu miasta."
+            },
+            {
+                "id": "2",
+                "icon": "👨‍👩‍👧‍👦",
+                "title": "Opieka dla wszystkich",
+                "text": "Wystarczająca liczba miejsc w przedszkolach i elastyczne rozwiązania opieki."
+            },
+            {
+                "id": "3",
+                "icon": "🏡",
+                "title": "Mieszkania i dzielnice",
+                "text": "Zróżnicowane i przystępne cenowo mieszkania we wszystkich dzielnicach miasta."
+            },
+            {
+                "id": "4",
+                "icon": "🚌",
+                "title": "Transport, który działa",
+                "text": "Ulepszona komunikacja miejska i płynniejszy ruch."
+            }
+        ]
+    }
+}
