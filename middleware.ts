@@ -12,13 +12,7 @@ function getLocale(request: NextRequest): Locale {
     );
     if (pathnameLocale) return pathnameLocale;
 
-    // Check Accept-Language header
-    const acceptLanguage = request.headers.get('Accept-Language');
-    if (acceptLanguage) {
-        if (acceptLanguage.includes('pl')) return 'pl';
-        if (acceptLanguage.includes('en')) return 'en';
-    }
-
+    // Default to Icelandic always
     return defaultLocale;
 }
 
