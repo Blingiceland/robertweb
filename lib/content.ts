@@ -44,7 +44,7 @@ export async function getArticles(): Promise<Article[]> {
     }
 
     try {
-        const blob = await head('articles.json', { token: process.env.BLOB_READ_WRITE_TOKEN });
+        const blob = await head('articles.json');
         const response = await fetch(blob.url);
         const data = await response.text();
         return JSON.parse(data);
@@ -67,7 +67,7 @@ export async function getNews(): Promise<NewsItem[]> {
     }
 
     try {
-        const blob = await head('news.json', { token: process.env.BLOB_READ_WRITE_TOKEN });
+        const blob = await head('news.json');
         const response = await fetch(blob.url);
         const data = await response.text();
         return JSON.parse(data);
@@ -89,7 +89,7 @@ export async function getVideos(): Promise<Video[]> {
     }
 
     try {
-        const blob = await head('videos.json', { token: process.env.BLOB_READ_WRITE_TOKEN });
+        const blob = await head('videos.json');
         const response = await fetch(blob.url);
         const data = await response.text();
         return JSON.parse(data);
@@ -104,8 +104,7 @@ export async function saveArticles(articles: Article[]): Promise<void> {
         await fs.writeFile(filePath, JSON.stringify(articles, null, 2));
     } else {
         await put('articles.json', JSON.stringify(articles, null, 2), {
-            access: 'public',
-            token: process.env.BLOB_READ_WRITE_TOKEN
+            access: 'public'
         });
     }
 }
@@ -116,8 +115,7 @@ export async function saveNews(news: NewsItem[]): Promise<void> {
         await fs.writeFile(filePath, JSON.stringify(news, null, 2));
     } else {
         await put('news.json', JSON.stringify(news, null, 2), {
-            access: 'public',
-            token: process.env.BLOB_READ_WRITE_TOKEN
+            access: 'public'
         });
     }
 }
@@ -128,8 +126,7 @@ export async function saveVideos(videos: Video[]): Promise<void> {
         await fs.writeFile(filePath, JSON.stringify(videos, null, 2));
     } else {
         await put('videos.json', JSON.stringify(videos, null, 2), {
-            access: 'public',
-            token: process.env.BLOB_READ_WRITE_TOKEN
+            access: 'public'
         });
     }
 }
@@ -172,7 +169,7 @@ export async function getSiteContentRaw(): Promise<SiteContentRaw> {
     }
 
     try {
-        const blob = await head('site.json', { token: process.env.BLOB_READ_WRITE_TOKEN });
+        const blob = await head('site.json');
         const response = await fetch(blob.url);
         const data = await response.text();
         return JSON.parse(data);
@@ -197,8 +194,7 @@ export async function saveSiteContent(content: SiteContentRaw): Promise<void> {
         await fs.writeFile(filePath, JSON.stringify(content, null, 4));
     } else {
         await put('site.json', JSON.stringify(content, null, 4), {
-            access: 'public',
-            token: process.env.BLOB_READ_WRITE_TOKEN
+            access: 'public'
         });
     }
 }
