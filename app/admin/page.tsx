@@ -46,11 +46,35 @@ export default function AdminDashboard() {
         }
     }
 
+    async function handleMigration() {
+        if (!confirm('Ertu viss um að þú viljir endurstilla allt efni úr öryggisafriti? Þetta gæti yfirskrifað nýlegar breytingar.')) {
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const res = await fetch('/api/admin/migrate', { method: 'POST' });
+            const result = await res.json();
+
+            if (result.success) {
+                alert('Gagnaflutningur tókst! Endurhlaða síðunni...');
+                window.location.reload();
+            } else {
+                alert('Gagnaflutningur mistókst: ' + JSON.stringify(result));
+            }
+        } catch (error) {
+            console.error('Migration error:', error);
+            alert('Villa kom upp við gagnaflutning');
+        } finally {
+            setLoading(false);
+        }
+    }
+
     if (loading) {
         return (
             <div className="admin-layout">
                 <div className="container">
-                    <p>Hleð gögnum...</p>
+                    <p>Hleð gögnum... Vinsamlegast bíðið.</p>
                 </div>
             </div>
         );
@@ -88,10 +112,28 @@ export default function AdminDashboard() {
 
             <div className="container">
                 <div className="admin-card">
-                    <h2>Velkomin í stjórnborđ</h2>
-                    <p style={{ marginTop: '16px', color: 'var(--dark-600)' }}>
-                        Hér getur þú bætt við og breytt greinum, fréttum og myndböndum.
-                    </p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                            <h2>Velkomin í stjórnborđ</h2>
+                            <p style={{ marginTop: '16px', color: 'var(--dark-600)' }}>
+                                Hér getur þú bætt við og breytt greinum, fréttum og myndböndum.
+                            </p>
+                        </div>
+                        <button
+                            onClick={handleMigration}
+                            style={{
+                                background: 'var(--primary)',
+                                color: 'white',
+                                border: 'none',
+                                padding: '10px 20px',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                fontWeight: 'bold'
+                            }}
+                        >
+                            🔄 Flytja gögn í Blob
+                        </button>
+                    </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', marginTop: '32px' }}>
                         <div style={{ padding: '24px', background: 'var(--light)', borderRadius: '12px', textAlign: 'center' }}>
