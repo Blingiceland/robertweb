@@ -1,5 +1,8 @@
+import { put, head } from '@vercel/blob';
 import { promises as fs } from 'fs';
 import path from 'path';
+
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 export interface Article {
     id: string;
@@ -34,9 +37,21 @@ export interface Video {
 const contentDir = path.join(process.cwd(), 'content');
 
 export async function getArticles(): Promise<Article[]> {
-    const filePath = path.join(contentDir, 'articles.json');
-    const data = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(data);
+    if (isDevelopment) {
+        const filePath = path.join(process.cwd(), 'content', 'articles.json');
+        const data = await fs.readFile(filePath, 'utf-8');
+        return JSON.parse(data);
+    }
+
+    try {
+        const blob = await head('articles.json', { token: process.env.BLOB_READ_WRITE_TOKEN });
+        const response = await fetch(blob.url);
+        const data = await response.text();
+        return JSON.parse(data);
+    } catch (error) {
+        // If blob doesn't exist yet, return empty array
+        return [];
+    }
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | undefined> {
@@ -45,9 +60,20 @@ export async function getArticleBySlug(slug: string): Promise<Article | undefine
 }
 
 export async function getNews(): Promise<NewsItem[]> {
-    const filePath = path.join(contentDir, 'news.json');
-    const data = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(data);
+    if (isDevelopment) {
+        const filePath = path.join(process.cwd(), 'content', 'news.json');
+        const data = await fs.readFile(filePath, 'utf-8');
+        return JSON.parse(data);
+    }
+
+    try {
+        const blob = await head('news.json', { token: process.env.BLOB_READ_WRITE_TOKEN });
+        const response = await fetch(blob.url);
+        const data = await response.text();
+        return JSON.parse(data);
+    } catch (error) {
+        return [];
+    }
 }
 
 export async function getNewsBySlug(slug: string): Promise<NewsItem | undefined> {
@@ -56,24 +82,56 @@ export async function getNewsBySlug(slug: string): Promise<NewsItem | undefined>
 }
 
 export async function getVideos(): Promise<Video[]> {
-    const filePath = path.join(contentDir, 'videos.json');
-    const data = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(data);
+    if (isDevelopment) {
+        const filePath = path.join(process.cwd(), 'content', 'videos.json');
+        const data = await fs.readFile(filePath, 'utf-8');
+        return JSON.parse(data);
+    }
+
+    try {
+        const blob = await head('videos.json', { token: process.env.BLOB_READ_WRITE_TOKEN });
+        const response = await fetch(blob.url);
+        const data = await response.text();
+        return JSON.parse(data);
+    } catch (error) {
+        return [];
+    }
 }
 
 export async function saveArticles(articles: Article[]): Promise<void> {
-    const filePath = path.join(contentDir, 'articles.json');
-    await fs.writeFile(filePath, JSON.stringify(articles, null, 2));
+    if (isDevelopment) {
+        const filePath = path.join(process.cwd(), 'content', 'articles.json');
+        await fs.writeFile(filePath, JSON.stringify(articles, null, 2));
+    } else {
+        await put('articles.json', JSON.stringify(articles, null, 2), {
+            access: 'public',
+            token: process.env.BLOB_READ_WRITE_TOKEN
+        });
+    }
 }
 
 export async function saveNews(news: NewsItem[]): Promise<void> {
-    const filePath = path.join(contentDir, 'news.json');
-    await fs.writeFile(filePath, JSON.stringify(news, null, 2));
+    if (isDevelopment) {
+        const filePath = path.join(process.cwd(), 'content', 'news.json');
+        await fs.writeFile(filePath, JSON.stringify(news, null, 2));
+    } else {
+        await put('news.json', JSON.stringify(news, null, 2), {
+            access: 'public',
+            token: process.env.BLOB_READ_WRITE_TOKEN
+        });
+    }
 }
 
 export async function saveVideos(videos: Video[]): Promise<void> {
-    const filePath = path.join(contentDir, 'videos.json');
-    await fs.writeFile(filePath, JSON.stringify(videos, null, 2));
+    if (isDevelopment) {
+        const filePath = path.join(process.cwd(), 'content', 'videos.json');
+        await fs.writeFile(filePath, JSON.stringify(videos, null, 2));
+    } else {
+        await put('videos.json', JSON.stringify(videos, null, 2), {
+            access: 'public',
+            token: process.env.BLOB_READ_WRITE_TOKEN
+        });
+    }
 }
 
 export interface VisionCard {
@@ -107,9 +165,21 @@ export interface SiteContent {
 }
 
 export async function getSiteContentRaw(): Promise<SiteContentRaw> {
-    const filePath = path.join(contentDir, 'site.json');
-    const data = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(data);
+    if (isDevelopment) {
+        const filePath = path.join(process.cwd(), 'content', 'site.json');
+        const data = await fs.readFile(filePath, 'utf-8');
+        return JSON.parse(data);
+    }
+
+    try {
+        const blob = await head('site.json', { token: process.env.BLOB_READ_WRITE_TOKEN });
+        const response = await fetch(blob.url);
+        const data = await response.text();
+        return JSON.parse(data);
+    } catch (error) {
+        // Return default structure if blob doesn't exist
+        return { about: {}, policy: {}, visionCards: {} };
+    }
 }
 
 export async function getSiteContent(locale: string = 'is'): Promise<SiteContent> {
@@ -122,7 +192,14 @@ export async function getSiteContent(locale: string = 'is'): Promise<SiteContent
 }
 
 export async function saveSiteContent(content: SiteContentRaw): Promise<void> {
-    const filePath = path.join(contentDir, 'site.json');
-    await fs.writeFile(filePath, JSON.stringify(content, null, 4));
+    if (isDevelopment) {
+        const filePath = path.join(process.cwd(), 'content', 'site.json');
+        await fs.writeFile(filePath, JSON.stringify(content, null, 4));
+    } else {
+        await put('site.json', JSON.stringify(content, null, 4), {
+            access: 'public',
+            token: process.env.BLOB_READ_WRITE_TOKEN
+        });
+    }
 }
 

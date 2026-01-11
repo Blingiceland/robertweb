@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "title": "Test News",
+    "excerpt": "Test Short Description",
+    "content": "Test Content Body",
+    "date": "2026-01-11",
+    "image": "/images/Frame 14687.png",
+    "is": {
+      "title": "Test News",
+      "excerpt": "Test Short Description",
+      "content": "Test Content Body"
+    },
+    "en": {
+      "title": "",
+      "excerpt": "",
+      "content": ""
+    },
+    "pl": {
+      "title": "",
+      "excerpt": "",
+      "content": ""
+    },
+    "id": "1768165373355",
+    "slug": "test-news"
+  }
+]
