@@ -179,12 +179,31 @@ export async function getSiteContentRaw(): Promise<SiteContentRaw> {
     }
 }
 
+// Default content objects to prevent crashes
+const defaultAbout: LocalizedAbout = {
+    title: '',
+    paragraphs: []
+};
+
+const defaultPolicy: LocalizedPolicy = {
+    title: '',
+    intro: [],
+    highlight: ''
+};
+
 export async function getSiteContent(locale: string = 'is'): Promise<SiteContent> {
     const raw = await getSiteContentRaw();
+
+    // Safely get content with fallbacks
+    // First try requested locale, then 'is', then default empty object
+    const about = (raw.about?.[locale] || raw.about?.['is'] || defaultAbout);
+    const policy = (raw.policy?.[locale] || raw.policy?.['is'] || defaultPolicy);
+    const visionCards = (raw.visionCards?.[locale] || raw.visionCards?.['is'] || []);
+
     return {
-        about: raw.about[locale] || raw.about['is'],
-        policy: raw.policy[locale] || raw.policy['is'],
-        visionCards: raw.visionCards[locale] || raw.visionCards['is']
+        about,
+        policy,
+        visionCards
     };
 }
 
