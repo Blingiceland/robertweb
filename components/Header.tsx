@@ -34,16 +34,44 @@ export default function Header({ locale, t }: HeaderProps) {
                             height={135}
                             className="logo-image"
                         />
-                        <div className="logo-text">
-                            <span className="logo-name">Róbert Ragnarsson</span>
-                        </div>
                     </Link>
                     <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                         <li><Link href={`/${locale}#um-mig`} className="nav-link">{t.nav.about}</Link></li>
                         <li><Link href={`/${locale}#stefna`} className="nav-link">{t.nav.policy}</Link></li>
                         <li><Link href={`/${locale}#frettir`} className="nav-link">{t.nav.news}</Link></li>
-                        <li><Link href={`/${locale}#myndskeio`} className="nav-link">{t.nav.videos}</Link></li>
-                        <li><a href="mailto:robbiragnars@gmail.com" className="nav-link cta-link">{t.nav.contact}</a></li>
+                        <li>
+                            <a
+                                href="https://vidreisn.is/malefni/vertu-med-i-vidreisn/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="nav-link"
+                                style={{ fontWeight: '600', color: 'var(--primary)' }}
+                            >
+                                Skráðu þig í Viðreisn
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__QeyBslUNUtNRDVZVUNERUJNR0JRMUEyR09LVUpRTy4u"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="nav-link"
+                                style={{ fontWeight: '600' }}
+                            >
+                                Viltu styðja?
+                            </a>
+                        </li>
+                        <li className="social-icons" style={{ display: 'flex', gap: '12px', alignItems: 'center', marginLeft: '8px' }}>
+                            <a href="https://www.facebook.com/robert.ragnarsson.5" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'color 0.2s' }}><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                            </a>
+                            <a href="https://www.instagram.com/robbi.ragnars/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'color 0.2s' }}><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                            </a>
+                            <a href="mailto:robbiragnars@gmail.com" aria-label="Email">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'color 0.2s' }}><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                            </a>
+                        </li>
                         <li className="lang-switcher">
                             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                                 {locales.map((l) => (

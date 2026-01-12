@@ -23,7 +23,7 @@ export default function Hero({ locale, t }: HeroProps) {
             <div className="container">
                 <div className="hero-content">
                     <div className="hero-text">
-                        <span className="hero-greeting">{t.hero.greeting}</span>
+
                         <span className="hero-name">Róbert Ragnarsson</span>
                         <p className="hero-subtitle">{t.hero.subtitle}</p>
                         <p className="hero-slogan">

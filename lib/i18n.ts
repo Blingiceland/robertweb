@@ -58,9 +58,9 @@ export const translations: Record<Locale, {
             contact: 'Hafa samband'
         },
         hero: {
-            greeting: 'Hæ, ég heiti',
-            subtitle: 'Frambjóðandi til borgarstjórnar Reykjavíkur',
-            slogan: 'Ég vil sjá betur rekna borg sem skilar sér í betri þjónustu fyrir íbúa.',
+            greeting: '',
+            subtitle: 'Frambjóðandi í prófkjöri Viðreisnar í Reykjavík',
+            slogan: 'Kominn er tími til raunverulegra breytinga. Það er eitt að tala um breytingar, annað að kunna og best er að hafa raunverulega gert.',
             cta1: 'Kynntu þér stefnuna',
             cta2: 'Hafa samband'
         },
