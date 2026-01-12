@@ -104,7 +104,8 @@ export async function saveArticles(articles: Article[]): Promise<void> {
         await fs.writeFile(filePath, JSON.stringify(articles, null, 2));
     } else {
         await put('articles.json', JSON.stringify(articles, null, 2), {
-            access: 'public'
+            access: 'public',
+            addRandomSuffix: false
         });
     }
 }
@@ -115,7 +116,8 @@ export async function saveNews(news: NewsItem[]): Promise<void> {
         await fs.writeFile(filePath, JSON.stringify(news, null, 2));
     } else {
         await put('news.json', JSON.stringify(news, null, 2), {
-            access: 'public'
+            access: 'public',
+            addRandomSuffix: false
         });
     }
 }
@@ -126,7 +128,8 @@ export async function saveVideos(videos: Video[]): Promise<void> {
         await fs.writeFile(filePath, JSON.stringify(videos, null, 2));
     } else {
         await put('videos.json', JSON.stringify(videos, null, 2), {
-            access: 'public'
+            access: 'public',
+            addRandomSuffix: false
         });
     }
 }
@@ -213,7 +216,8 @@ export async function saveSiteContent(content: SiteContentRaw): Promise<void> {
         await fs.writeFile(filePath, JSON.stringify(content, null, 4));
     } else {
         await put('site.json', JSON.stringify(content, null, 4), {
-            access: 'public'
+            access: 'public',
+            addRandomSuffix: false
         });
     }
 }

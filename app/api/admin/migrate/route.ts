@@ -8,7 +8,10 @@ export async function POST(request: NextRequest) {
 
         // 1. Site Content
         try {
-            await put('site.json', JSON.stringify(defaultSiteContent, null, 2), { access: 'public' });
+            await put('site.json', JSON.stringify(defaultSiteContent, null, 2), {
+                access: 'public',
+                addRandomSuffix: false
+            });
             results.push({ file: 'site.json', status: 'success' });
         } catch (error) {
             console.error('Error migrating site.json:', error);
@@ -17,7 +20,10 @@ export async function POST(request: NextRequest) {
 
         // 2. Articles
         try {
-            await put('articles.json', JSON.stringify(defaultArticles, null, 2), { access: 'public' });
+            await put('articles.json', JSON.stringify(defaultArticles, null, 2), {
+                access: 'public',
+                addRandomSuffix: false
+            });
             results.push({ file: 'articles.json', status: 'success' });
         } catch (error) {
             console.error('Error migrating articles.json:', error);
@@ -26,7 +32,10 @@ export async function POST(request: NextRequest) {
 
         // 3. News
         try {
-            await put('news.json', JSON.stringify(defaultNews, null, 2), { access: 'public' });
+            await put('news.json', JSON.stringify(defaultNews, null, 2), {
+                access: 'public',
+                addRandomSuffix: false
+            });
             results.push({ file: 'news.json', status: 'success' });
         } catch (error) {
             console.error('Error migrating news.json:', error);
@@ -35,7 +44,10 @@ export async function POST(request: NextRequest) {
 
         // 4. Videos
         try {
-            await put('videos.json', JSON.stringify(defaultVideos, null, 2), { access: 'public' });
+            await put('videos.json', JSON.stringify(defaultVideos, null, 2), {
+                access: 'public',
+                addRandomSuffix: false
+            });
             results.push({ file: 'videos.json', status: 'success' });
         } catch (error) {
             console.error('Error migrating videos.json:', error);
