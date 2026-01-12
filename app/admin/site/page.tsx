@@ -10,32 +10,21 @@ interface VisionCard {
     text: string;
 }
 
-interface LocalizedAbout {
-    title: string;
-    paragraphs: string[];
+interface SiteContent {
+    about: {
+        title: string;
+        paragraphs: string[];
+    };
+    policy: {
+        title: string;
+        intro: string[];
+        highlight: string;
+    };
+    visionCards: VisionCard[];
 }
-
-interface LocalizedPolicy {
-    title: string;
-    intro: string[];
-    highlight: string;
-}
-
-interface SiteContentRaw {
-    about: Record<string, LocalizedAbout>;
-    policy: Record<string, LocalizedPolicy>;
-    visionCards: Record<string, VisionCard[]>;
-}
-
-const locales = [
-    { code: 'is', name: 'Íslenska' },
-    { code: 'en', name: 'English' },
-    { code: 'pl', name: 'Polski' }
-];
 
 export default function AdminSite() {
-    const [content, setContent] = useState<SiteContentRaw | null>(null);
-    const [selectedLocale, setSelectedLocale] = useState<string>('is');
+    const [content, setContent] = useState<SiteContent | null>(null);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
@@ -47,8 +36,8 @@ export default function AdminSite() {
 
     async function fetchContent() {
         try {
-            // Fetch raw mode to get all languages
-            const res = await fetch('/api/content?type=site&mode=raw', { cache: 'no-store' });
+            // Fetch standard mode (defaults to 'is' or simplified structure)
+            const res = await fetch('/api/content?type=site', { cache: 'no-store' });
             const data = await res.json();
             setContent(data);
         } catch (error) {
@@ -62,7 +51,8 @@ export default function AdminSite() {
         if (!content) return;
         setSaving(true);
         try {
-            const res = await fetch('/api/content?type=site&mode=raw', {
+            // Save in standard mode - API will merge this into 'is' locale
+            const res = await fetch('/api/content?type=site', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(content)
@@ -82,129 +72,70 @@ export default function AdminSite() {
         }
     }
 
-    // Helper to ensure locale object exists
-    function ensureLocale(section: 'about' | 'policy' | 'visionCards') {
-        if (!content) return null;
-        if (!content[section][selectedLocale]) {
-            // Return empty structure based on section
-            if (section === 'about') return { title: '', paragraphs: [] };
-            if (section === 'policy') return { title: '', intro: [], highlight: '' };
-            if (section === 'visionCards') return [];
-        }
-        return content[section][selectedLocale];
-    }
-
-    // --- About Helpers ---
-
-    function getAbout() {
-        return (content?.about[selectedLocale] || { title: '', paragraphs: [] }) as LocalizedAbout;
-    }
-
-    function updateAbout(updates: Partial<LocalizedAbout>) {
-        if (!content) return;
-        const current = getAbout();
-        setContent({
-            ...content,
-            about: {
-                ...content.about,
-                [selectedLocale]: { ...current, ...updates }
-            }
-        });
-    }
-
     function updateAboutParagraph(index: number, value: string) {
-        const current = getAbout();
-        const newParagraphs = [...current.paragraphs];
+        if (!content) return;
+        const newParagraphs = [...content.about.paragraphs];
         newParagraphs[index] = value;
-        updateAbout({ paragraphs: newParagraphs });
+        setContent({ ...content, about: { ...content.about, paragraphs: newParagraphs } });
     }
 
     function addAboutParagraph() {
-        const current = getAbout();
-        updateAbout({ paragraphs: [...current.paragraphs, ''] });
+        if (!content) return;
+        setContent({
+            ...content,
+            about: { ...content.about, paragraphs: [...content.about.paragraphs, ''] }
+        });
     }
 
     function removeAboutParagraph(index: number) {
-        const current = getAbout();
-        const newParagraphs = current.paragraphs.filter((_, i) => i !== index);
-        updateAbout({ paragraphs: newParagraphs });
-    }
-
-    // --- Policy Helpers ---
-
-    function getPolicy() {
-        return (content?.policy[selectedLocale] || { title: '', intro: [], highlight: '' }) as LocalizedPolicy;
-    }
-
-    function updatePolicy(updates: Partial<LocalizedPolicy>) {
         if (!content) return;
-        const current = getPolicy();
-        setContent({
-            ...content,
-            policy: {
-                ...content.policy,
-                [selectedLocale]: { ...current, ...updates }
-            }
-        });
+        const newParagraphs = content.about.paragraphs.filter((_, i) => i !== index);
+        setContent({ ...content, about: { ...content.about, paragraphs: newParagraphs } });
     }
 
     function updatePolicyIntro(index: number, value: string) {
-        const current = getPolicy();
-        const newIntro = [...current.intro];
+        if (!content) return;
+        const newIntro = [...content.policy.intro];
         newIntro[index] = value;
-        updatePolicy({ intro: newIntro });
+        setContent({ ...content, policy: { ...content.policy, intro: newIntro } });
     }
 
     function addPolicyIntro() {
-        const current = getPolicy();
-        updatePolicy({ intro: [...current.intro, ''] });
-    }
-
-    function removePolicyIntro(index: number) {
-        const current = getPolicy();
-        const newIntro = current.intro.filter((_, i) => i !== index);
-        updatePolicy({ intro: newIntro });
-    }
-
-    // --- Vision Cards Helpers ---
-
-    function getCards() {
-        return (content?.visionCards[selectedLocale] || []) as VisionCard[];
-    }
-
-    function updateCards(newCards: VisionCard[]) {
         if (!content) return;
         setContent({
             ...content,
-            visionCards: {
-                ...content.visionCards,
-                [selectedLocale]: newCards
-            }
+            policy: { ...content.policy, intro: [...content.policy.intro, ''] }
         });
     }
 
+    function removePolicyIntro(index: number) {
+        if (!content) return;
+        const newIntro = content.policy.intro.filter((_, i) => i !== index);
+        setContent({ ...content, policy: { ...content.policy, intro: newIntro } });
+    }
+
     function updateVisionCard(index: number, field: keyof VisionCard, value: string) {
-        const current = getCards();
-        const newCards = [...current];
+        if (!content) return;
+        const newCards = [...content.visionCards];
         newCards[index] = { ...newCards[index], [field]: value };
-        updateCards(newCards);
+        setContent({ ...content, visionCards: newCards });
     }
 
     function addVisionCard() {
-        const current = getCards();
+        if (!content) return;
         const newCard: VisionCard = {
             id: Date.now().toString(),
             icon: '🎯',
             title: '',
             text: ''
         };
-        updateCards([...current, newCard]);
+        setContent({ ...content, visionCards: [...content.visionCards, newCard] });
     }
 
     function removeVisionCard(index: number) {
-        const current = getCards();
-        const newCards = current.filter((_, i) => i !== index);
-        updateCards(newCards);
+        if (!content) return;
+        const newCards = content.visionCards.filter((_, i) => i !== index);
+        setContent({ ...content, visionCards: newCards });
     }
 
     if (loading || !content) {
@@ -216,10 +147,6 @@ export default function AdminSite() {
             </div>
         );
     }
-
-    const currentAbout = getAbout();
-    const currentPolicy = getPolicy();
-    const currentCards = getCards();
 
     return (
         <div className="admin-layout">
@@ -249,29 +176,7 @@ export default function AdminSite() {
                 )}
 
                 <div className="admin-card">
-                    {/* Language Tabs */}
-                    <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', background: '#f0f0f0', padding: '4px', borderRadius: '8px', width: 'fit-content' }}>
-                        {locales.map(locale => (
-                            <button
-                                key={locale.code}
-                                onClick={() => setSelectedLocale(locale.code)}
-                                style={{
-                                    padding: '8px 16px',
-                                    background: selectedLocale === locale.code ? 'white' : 'transparent',
-                                    color: selectedLocale === locale.code ? 'var(--primary)' : '#666',
-                                    border: 'none',
-                                    borderRadius: '6px',
-                                    fontWeight: '600',
-                                    cursor: 'pointer',
-                                    boxShadow: selectedLocale === locale.code ? '0 2px 4px rgba(0,0,0,0.1)' : 'none'
-                                }}
-                            >
-                                {locale.name}
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Section Tabs */}
+                    {/* Tabs */}
                     <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', borderBottom: '2px solid var(--light)', paddingBottom: '16px' }}>
                         <button
                             onClick={() => setActiveTab('about')}
@@ -320,16 +225,16 @@ export default function AdminSite() {
                     {/* About Tab */}
                     {activeTab === 'about' && (
                         <div>
-                            <h2 style={{ marginBottom: '20px' }}>Um mig - Texti ({locales.find(l => l.code === selectedLocale)?.name})</h2>
+                            <h2 style={{ marginBottom: '20px' }}>Um mig - Texti</h2>
                             <div className="form-group">
                                 <label>Fyrirsögn</label>
                                 <input
                                     type="text"
-                                    value={currentAbout.title}
-                                    onChange={(e) => updateAbout({ title: e.target.value })}
+                                    value={content.about.title}
+                                    onChange={(e) => setContent({ ...content, about: { ...content.about, title: e.target.value } })}
                                 />
                             </div>
-                            {currentAbout.paragraphs.map((para, index) => (
+                            {content.about.paragraphs.map((para, index) => (
                                 <div key={index} className="form-group" style={{ position: 'relative' }}>
                                     <label>Málsgrein {index + 1}</label>
                                     <textarea
@@ -337,7 +242,7 @@ export default function AdminSite() {
                                         onChange={(e) => updateAboutParagraph(index, e.target.value)}
                                         style={{ minHeight: '100px' }}
                                     />
-                                    {currentAbout.paragraphs.length > 1 && (
+                                    {content.about.paragraphs.length > 1 && (
                                         <button
                                             onClick={() => removeAboutParagraph(index)}
                                             style={{
@@ -371,16 +276,16 @@ export default function AdminSite() {
                     {/* Policy Tab */}
                     {activeTab === 'policy' && (
                         <div>
-                            <h2 style={{ marginBottom: '20px' }}>Stefnuyfirlýsing - Texti ({locales.find(l => l.code === selectedLocale)?.name})</h2>
+                            <h2 style={{ marginBottom: '20px' }}>Stefnuyfirlýsing - Texti</h2>
                             <div className="form-group">
                                 <label>Fyrirsögn</label>
                                 <input
                                     type="text"
-                                    value={currentPolicy.title}
-                                    onChange={(e) => updatePolicy({ title: e.target.value })}
+                                    value={content.policy.title}
+                                    onChange={(e) => setContent({ ...content, policy: { ...content.policy, title: e.target.value } })}
                                 />
                             </div>
-                            {currentPolicy.intro.map((para, index) => (
+                            {content.policy.intro.map((para, index) => (
                                 <div key={index} className="form-group" style={{ position: 'relative' }}>
                                     <label>Inngangur {index + 1}</label>
                                     <textarea
@@ -388,7 +293,7 @@ export default function AdminSite() {
                                         onChange={(e) => updatePolicyIntro(index, e.target.value)}
                                         style={{ minHeight: '80px' }}
                                     />
-                                    {currentPolicy.intro.length > 1 && (
+                                    {content.policy.intro.length > 1 && (
                                         <button
                                             onClick={() => removePolicyIntro(index)}
                                             style={{
@@ -419,8 +324,8 @@ export default function AdminSite() {
                             <div className="form-group">
                                 <label>Áherslusetning (highlight)</label>
                                 <textarea
-                                    value={currentPolicy.highlight}
-                                    onChange={(e) => updatePolicy({ highlight: e.target.value })}
+                                    value={content.policy.highlight}
+                                    onChange={(e) => setContent({ ...content, policy: { ...content.policy, highlight: e.target.value } })}
                                     style={{ minHeight: '60px' }}
                                 />
                             </div>
@@ -430,8 +335,8 @@ export default function AdminSite() {
                     {/* Vision Cards Tab */}
                     {activeTab === 'cards' && (
                         <div>
-                            <h2 style={{ marginBottom: '20px' }}>Stefnukort ({locales.find(l => l.code === selectedLocale)?.name})</h2>
-                            {currentCards.map((card, index) => (
+                            <h2 style={{ marginBottom: '20px' }}>Stefnukort</h2>
+                            {content.visionCards.map((card, index) => (
                                 <div key={card.id} style={{
                                     background: 'var(--light)',
                                     padding: '20px',

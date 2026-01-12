@@ -58,7 +58,7 @@ export default function Header({ locale, t }: HeaderProps) {
                                 className="nav-link"
                                 style={{ fontWeight: '600' }}
                             >
-                                Viltu styðja?
+                                Viltu styðja Róbert?
                             </a>
                         </li>
                         <li className="social-icons" style={{ display: 'flex', gap: '12px', alignItems: 'center', marginLeft: '8px' }}>
