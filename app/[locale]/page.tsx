@@ -1,11 +1,10 @@
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import Policy from "@/components/sections/Policy";
-import News from "@/components/sections/News";
 import Articles from "@/components/sections/Articles";
 import Videos from "@/components/sections/Videos";
 import Contact from "@/components/sections/Contact";
-import { getArticles, getNews, getVideos, getSiteContent } from "@/lib/content";
+import { getArticles, getVideos, getSiteContent } from "@/lib/content";
 import { getTranslations, Locale, locales, defaultLocale } from "@/lib/i18n";
 
 // Force dynamic rendering to always show fresh content
@@ -26,7 +25,6 @@ export default async function Home({ params }: PageProps) {
         ? (localeParam as Locale)
         : defaultLocale;
     const articles = await getArticles();
-    const news = await getNews();
     const videos = await getVideos();
     const siteContent = await getSiteContent(locale);
     const t = getTranslations(locale);
@@ -36,7 +34,6 @@ export default async function Home({ params }: PageProps) {
             <Hero locale={locale} t={t} />
             <About content={siteContent.about} />
             <Policy content={siteContent.policy} visionCards={siteContent.visionCards} />
-            <News news={news} t={t} />
             <Articles articles={articles} t={t} locale={locale} />
             <Videos videos={videos} t={t} />
             <Contact t={t} />

@@ -16,7 +16,6 @@ interface ContentItem {
 export default function AdminDashboard() {
     const { logout } = useAuth();
     const [articles, setArticles] = useState<ContentItem[]>([]);
-    const [news, setNews] = useState<ContentItem[]>([]);
     const [videos, setVideos] = useState<ContentItem[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -26,18 +25,15 @@ export default function AdminDashboard() {
 
     async function fetchContent() {
         try {
-            const [articlesRes, newsRes, videosRes] = await Promise.all([
+            const [articlesRes, videosRes] = await Promise.all([
                 fetch('/api/content?type=articles'),
-                fetch('/api/content?type=news'),
                 fetch('/api/content?type=videos'),
             ]);
 
             const articlesData = await articlesRes.json();
-            const newsData = await newsRes.json();
             const videosData = await videosRes.json();
 
             setArticles(articlesData);
-            setNews(newsData);
             setVideos(videosData);
         } catch (error) {
             console.error('Error fetching content:', error);
@@ -88,8 +84,7 @@ export default function AdminDashboard() {
                     <nav className="admin-nav">
                         <Link href="/admin/site">Síðuefni</Link>
                         <Link href="/admin/articles">Greinar ({articles.length})</Link>
-                        <Link href="/admin/news">Fréttir ({news.length})</Link>
-                        <Link href="/admin/videos">Myndskeið ({videos.length})</Link>
+                        <Link href="/admin/videos">Myndskeiđ ({videos.length})</Link>
                         <Link href="/">← Forsíða</Link>
                         <button
                             onClick={logout}
@@ -135,14 +130,10 @@ export default function AdminDashboard() {
                         </button>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', marginTop: '32px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px', marginTop: '32px' }}>
                         <div style={{ padding: '24px', background: 'var(--light)', borderRadius: '12px', textAlign: 'center' }}>
                             <h3 style={{ fontSize: '48px', color: 'var(--primary)' }}>{articles.length}</h3>
                             <p>Greinar</p>
-                        </div>
-                        <div style={{ padding: '24px', background: 'var(--light)', borderRadius: '12px', textAlign: 'center' }}>
-                            <h3 style={{ fontSize: '48px', color: 'var(--primary)' }}>{news.length}</h3>
-                            <p>Fréttir</p>
                         </div>
                         <div style={{ padding: '24px', background: 'var(--light)', borderRadius: '12px', textAlign: 'center' }}>
                             <h3 style={{ fontSize: '48px', color: 'var(--primary)' }}>{videos.length}</h3>

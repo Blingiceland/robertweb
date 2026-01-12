@@ -38,7 +38,6 @@ export default function Header({ locale, t }: HeaderProps) {
                     <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                         <li><Link href={`/${locale}#um-mig`} className="nav-link">{t.nav.about}</Link></li>
                         <li><Link href={`/${locale}#stefna`} className="nav-link">{t.nav.policy}</Link></li>
-                        <li><Link href={`/${locale}#frettir`} className="nav-link">{t.nav.news}</Link></li>
                         <li>
                             <a
                                 href="https://vidreisn.is/malefni/vertu-med-i-vidreisn/"
