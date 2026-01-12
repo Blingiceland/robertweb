@@ -9,7 +9,7 @@ interface AboutProps {
 
 export default function About({ content }: AboutProps) {
     return (
-        <section className="section about-section" id="um-mig-content">
+        <section className="section about-section" id="um-mig">
             <div className="container">
                 <div className="section-header">
                     <h2 className="section-title">{content.title}</h2>

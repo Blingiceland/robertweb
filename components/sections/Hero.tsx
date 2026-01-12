@@ -9,7 +9,7 @@ interface HeroProps {
 
 export default function Hero({ locale, t }: HeroProps) {
     return (
-        <section className="hero" id="um-mig">
+        <section className="hero">
             <div className="hero-background">
                 <Image
                     src="/images/Frame 14690.png"
