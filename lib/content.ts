@@ -103,9 +103,19 @@ export async function saveArticles(articles: Article[]): Promise<void> {
         const filePath = path.join(process.cwd(), 'content', 'articles.json');
         await fs.writeFile(filePath, JSON.stringify(articles, null, 2));
     } else {
+        // Delete existing blob first
+        try {
+            const { del } = await import('@vercel/blob');
+            const existingBlob = await head('articles.json').catch(() => null);
+            if (existingBlob) {
+                await del(existingBlob.url);
+            }
+        } catch (error) {
+            console.log('[saveArticles] Delete skipped:', error);
+        }
+
         await put('articles.json', JSON.stringify(articles, null, 2), {
-            access: 'public',
-            addRandomSuffix: false
+            access: 'public'
         });
     }
 }
@@ -115,9 +125,19 @@ export async function saveNews(news: NewsItem[]): Promise<void> {
         const filePath = path.join(process.cwd(), 'content', 'news.json');
         await fs.writeFile(filePath, JSON.stringify(news, null, 2));
     } else {
+        // Delete existing blob first
+        try {
+            const { del } = await import('@vercel/blob');
+            const existingBlob = await head('news.json').catch(() => null);
+            if (existingBlob) {
+                await del(existingBlob.url);
+            }
+        } catch (error) {
+            console.log('[saveNews] Delete skipped:', error);
+        }
+
         await put('news.json', JSON.stringify(news, null, 2), {
-            access: 'public',
-            addRandomSuffix: false
+            access: 'public'
         });
     }
 }
@@ -127,9 +147,19 @@ export async function saveVideos(videos: Video[]): Promise<void> {
         const filePath = path.join(process.cwd(), 'content', 'videos.json');
         await fs.writeFile(filePath, JSON.stringify(videos, null, 2));
     } else {
+        // Delete existing blob first
+        try {
+            const { del } = await import('@vercel/blob');
+            const existingBlob = await head('videos.json').catch(() => null);
+            if (existingBlob) {
+                await del(existingBlob.url);
+            }
+        } catch (error) {
+            console.log('[saveVideos] Delete skipped:', error);
+        }
+
         await put('videos.json', JSON.stringify(videos, null, 2), {
-            access: 'public',
-            addRandomSuffix: false
+            access: 'public'
         });
     }
 }
