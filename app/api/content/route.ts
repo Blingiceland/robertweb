@@ -169,8 +169,10 @@ export async function PUT(request: NextRequest) {
     // Site content doesn't need an ID
     if (type === 'site') {
         try {
+            console.log('[API] Saving site content...');
             // Get raw content to preserve structure and other locales
             const raw = await getSiteContentRaw();
+            console.log('[API] Fetched raw content:', JSON.stringify(raw).substring(0, 200));
 
             // Ensure structure exists (handling potential corrupted/migrated data)
             if (!raw.about) raw.about = {};
@@ -186,16 +188,19 @@ export async function PUT(request: NextRequest) {
                 if (body.visionCards) raw.visionCards = { ...raw.visionCards, ...body.visionCards };
             } else {
                 // Default/Legacy mode: Body contains simplified structure for 'is'
+                console.log('[API] Updating Icelandic locale with body:', JSON.stringify(body).substring(0, 200));
                 if (body.about) raw.about['is'] = body.about;
                 if (body.policy) raw.policy['is'] = body.policy;
                 if (body.visionCards) raw.visionCards['is'] = body.visionCards;
             }
 
+            console.log('[API] Saving to blob...');
             await saveSiteContent(raw);
+            console.log('[API] Save successful');
             return NextResponse.json({ success: true });
         } catch (error) {
-            console.error('Error saving site content:', error);
-            return NextResponse.json({ error: 'Failed to save site content' }, { status: 500 });
+            console.error('[API] Error saving site content:', error);
+            return NextResponse.json({ error: `Failed to save site content: ${String(error)}` }, { status: 500 });
         }
     }
 

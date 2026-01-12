@@ -62,11 +62,13 @@ export default function AdminSite() {
                 setSuccessMessage('Vistað!');
                 setTimeout(() => setSuccessMessage(''), 3000);
             } else {
-                alert('Villa við að vista');
+                const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+                console.error('Save failed:', errorData);
+                alert(`Villa við að vista: ${errorData.error || res.statusText}`);
             }
         } catch (error) {
             console.error('Error saving:', error);
-            alert('Villa við að vista');
+            alert(`Villa við að vista: ${String(error)}`);
         } finally {
             setSaving(false);
         }
