@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getArticles, getNews, getVideos, saveArticles, saveNews, saveVideos, getSiteContent, saveSiteContent, getSiteContentRaw } from '@/lib/content';
 
 export async function GET(request: NextRequest) {
@@ -197,6 +198,13 @@ export async function PUT(request: NextRequest) {
             console.log('[API] Saving to blob...');
             await saveSiteContent(raw);
             console.log('[API] Save successful');
+
+            // Revalidate all locale paths to show changes immediately
+            revalidatePath('/is');
+            revalidatePath('/en');
+            revalidatePath('/pl');
+            revalidatePath('/');
+
             return NextResponse.json({ success: true });
         } catch (error) {
             console.error('[API] Error saving site content:', error);
