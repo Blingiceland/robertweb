@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getArticles, getNews, getVideos, saveArticles, saveNews, saveVideos, getSiteContent, saveSiteContent } from '@/lib/content';
+import { getArticles, getNews, getVideos, saveArticles, saveNews, saveVideos, getSiteContent, saveSiteContent, getSiteContentRaw } from '@/lib/content';
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
@@ -160,7 +160,21 @@ export async function PUT(request: NextRequest) {
     // Site content doesn't need an ID
     if (type === 'site') {
         try {
-            await saveSiteContent(body);
+            // Get raw content to preserve structure and other locales
+            const raw = await getSiteContentRaw();
+
+            // Ensure structure exists (handling potential corrupted/migrated data)
+            if (!raw.about) raw.about = {};
+            if (!raw.policy) raw.policy = {};
+            if (!raw.visionCards) raw.visionCards = {};
+
+            // Update content for default locale ('is')
+            // The body matches the SiteContent interface (simplified)
+            if (body.about) raw.about['is'] = body.about;
+            if (body.policy) raw.policy['is'] = body.policy;
+            if (body.visionCards) raw.visionCards['is'] = body.visionCards;
+
+            await saveSiteContent(raw);
             return NextResponse.json({ success: true });
         } catch (error) {
             console.error('Error saving site content:', error);
