@@ -17,6 +17,15 @@ export async function GET(request: NextRequest) {
                 const videos = await getVideos();
                 return NextResponse.json(videos, { headers: { 'Cache-Control': 'no-store' } });
             case 'site':
+                // Support fetching raw content for admin interface
+                if (searchParams.get('mode') === 'raw') {
+                    const rawSite = await getSiteContentRaw();
+                    // Ensure structure exists
+                    if (!rawSite.about) rawSite.about = {};
+                    if (!rawSite.policy) rawSite.policy = {};
+                    if (!rawSite.visionCards) rawSite.visionCards = {};
+                    return NextResponse.json(rawSite, { headers: { 'Cache-Control': 'no-store' } });
+                }
                 const site = await getSiteContent();
                 return NextResponse.json(site, { headers: { 'Cache-Control': 'no-store' } });
             default:
@@ -168,11 +177,19 @@ export async function PUT(request: NextRequest) {
             if (!raw.policy) raw.policy = {};
             if (!raw.visionCards) raw.visionCards = {};
 
-            // Update content for default locale ('is')
-            // The body matches the SiteContent interface (simplified)
-            if (body.about) raw.about['is'] = body.about;
-            if (body.policy) raw.policy['is'] = body.policy;
-            if (body.visionCards) raw.visionCards['is'] = body.visionCards;
+            // Update content based on mode
+            if (searchParams.get('mode') === 'raw') {
+                // Raw mode: Body contains full multilingual structure
+                // Merge new data with existing to preserve other changes if any
+                if (body.about) raw.about = { ...raw.about, ...body.about };
+                if (body.policy) raw.policy = { ...raw.policy, ...body.policy };
+                if (body.visionCards) raw.visionCards = { ...raw.visionCards, ...body.visionCards };
+            } else {
+                // Default/Legacy mode: Body contains simplified structure for 'is'
+                if (body.about) raw.about['is'] = body.about;
+                if (body.policy) raw.policy['is'] = body.policy;
+                if (body.visionCards) raw.visionCards['is'] = body.visionCards;
+            }
 
             await saveSiteContent(raw);
             return NextResponse.json({ success: true });
