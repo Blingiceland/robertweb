@@ -215,10 +215,23 @@ export async function saveSiteContent(content: SiteContentRaw): Promise<void> {
         const filePath = path.join(process.cwd(), 'content', 'site.json');
         await fs.writeFile(filePath, JSON.stringify(content, null, 4));
     } else {
+        // Delete existing blob first to avoid overwrite issues
+        try {
+            const { del } = await import('@vercel/blob');
+            const existingBlob = await head('site.json').catch(() => null);
+            if (existingBlob) {
+                await del(existingBlob.url);
+            }
+        } catch (error) {
+            // Ignore delete errors - blob might not exist
+            console.log('[saveSiteContent] Delete skipped:', error);
+        }
+
+        // Now create new blob
         await put('site.json', JSON.stringify(content, null, 4), {
-            access: 'public',
-            addRandomSuffix: false
+            access: 'public'
         });
     }
 }
+
 
