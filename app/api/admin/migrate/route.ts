@@ -1,35 +1,45 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { put } from '@vercel/blob';
-import path from 'path';
-import { promises as fs } from 'fs';
-
-// Content types to migrate
-const CONTENT_FILES = ['site.json', 'articles.json', 'news.json', 'videos.json'];
+import { defaultSiteContent, defaultArticles, defaultNews, defaultVideos } from '@/lib/defaultContent';
 
 export async function POST(request: NextRequest) {
     try {
         const results = [];
-        const contentDir = path.join(process.cwd(), 'content');
 
-        for (const filename of CONTENT_FILES) {
-            try {
-                // Read from local filesystem (deployment bundle)
-                const filePath = path.join(contentDir, filename);
-                const fileContent = await fs.readFile(filePath, 'utf-8');
+        // 1. Site Content
+        try {
+            await put('site.json', JSON.stringify(defaultSiteContent, null, 2), { access: 'public' });
+            results.push({ file: 'site.json', status: 'success' });
+        } catch (error) {
+            console.error('Error migrating site.json:', error);
+            results.push({ file: 'site.json', status: 'error', error: String(error) });
+        }
 
-                // Parse to ensure validity
-                const jsonContent = JSON.parse(fileContent);
+        // 2. Articles
+        try {
+            await put('articles.json', JSON.stringify(defaultArticles, null, 2), { access: 'public' });
+            results.push({ file: 'articles.json', status: 'success' });
+        } catch (error) {
+            console.error('Error migrating articles.json:', error);
+            results.push({ file: 'articles.json', status: 'error', error: String(error) });
+        }
 
-                // Upload to Vercel Blob
-                await put(filename, JSON.stringify(jsonContent, null, 2), {
-                    access: 'public'
-                });
+        // 3. News
+        try {
+            await put('news.json', JSON.stringify(defaultNews, null, 2), { access: 'public' });
+            results.push({ file: 'news.json', status: 'success' });
+        } catch (error) {
+            console.error('Error migrating news.json:', error);
+            results.push({ file: 'news.json', status: 'error', error: String(error) });
+        }
 
-                results.push({ file: filename, status: 'success' });
-            } catch (error) {
-                console.error(`Error migrating ${filename}:`, error);
-                results.push({ file: filename, status: 'error', error: String(error) });
-            }
+        // 4. Videos
+        try {
+            await put('videos.json', JSON.stringify(defaultVideos, null, 2), { access: 'public' });
+            results.push({ file: 'videos.json', status: 'success' });
+        } catch (error) {
+            console.error('Error migrating videos.json:', error);
+            results.push({ file: 'videos.json', status: 'error', error: String(error) });
         }
 
         return NextResponse.json({ success: true, results });
