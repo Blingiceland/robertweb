@@ -23,12 +23,8 @@ export default function Hero({ locale, t }: HeroProps) {
             <div className="container">
                 <div className="hero-content">
                     <div className="hero-text">
-
                         <span className="hero-name">Róbert Ragnarsson</span>
                         <p className="hero-subtitle">{t.hero.subtitle}</p>
-                        <p className="hero-slogan">
-                            &ldquo;{t.hero.slogan}&rdquo;
-                        </p>
                         <div className="hero-cta">
                             <Link href={`/${locale}#stefna`} className="btn btn-primary">
                                 {t.hero.cta1}
@@ -39,6 +35,9 @@ export default function Hero({ locale, t }: HeroProps) {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="hero-bottom-quote">
+                <p>{t.hero.slogan}</p>
             </div>
         </section>
     );

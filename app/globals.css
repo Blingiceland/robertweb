@@ -286,6 +286,27 @@ body {
   padding-left: 20px;
 }
 
+.hero-bottom-quote {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px 24px;
+  text-align: center;
+  z-index: 10;
+  background: linear-gradient(to top, rgba(83, 87, 90, 1) 0%, rgba(83, 87, 90, 0) 100%);
+}
+
+.hero-bottom-quote p {
+  font-size: 24px;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--white);
+  max-width: 1000px;
+  margin: 0 auto;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 .hero-cta {
   display: flex;
   gap: 16px;
@@ -446,7 +467,7 @@ body {
 
 .vision-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   margin: 40px 0;
 }
