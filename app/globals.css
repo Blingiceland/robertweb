@@ -209,6 +209,23 @@ body {
   color: var(--white);
 }
 
+@media (max-width: 768px) {
+  .hero {
+    min-height: 50vh;
+    /* Reduce height on mobile to minimize gray space */
+    padding-top: 80px;
+    align-items: center;
+    /* Center align items vertically if needed, or keep flex-start */
+  }
+
+  .hero-background img {
+    object-position: top center;
+    /* Focus on top part of image where content likely is */
+    object-fit: cover;
+    /* Optional: might cut off content but removes gray bars. Let's try cover if contain is the issue */
+  }
+}
+
 .hero-background {
   position: absolute;
   top: 0;
@@ -292,6 +309,25 @@ body {
   margin-bottom: 30px;
   color: var(--white);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .hero-name {
+    font-size: 42px;
+    /* Significantly smaller for mobile */
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .hero-greeting {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .hero-subtitle {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
 }
 
 .quote-section {
