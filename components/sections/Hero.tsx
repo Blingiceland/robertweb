@@ -20,12 +20,10 @@ export default function Hero({ locale, t }: HeroProps) {
                 />
             </div>
             <div className="hero-overlay"></div>
-            <div className="container">
-                <div className="hero-content">
-                    <div className="hero-text">
-                        <span className="hero-name">Róbert Ragnarsson</span>
-                        <p className="hero-subtitle">{t.hero.subtitle}</p>
-                    </div>
+            <div className="hero-content">
+                <div className="hero-text">
+                    <span className="hero-name">Róbert Ragnarsson</span>
+                    <p className="hero-subtitle">{t.hero.subtitle}</p>
                 </div>
             </div>
             <div className="hero-bottom-quote">

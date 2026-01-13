@@ -203,7 +203,7 @@ body {
   min-height: 100vh;
   display: flex;
   align-items: flex-start;
-  padding-top: 180px;
+  padding-top: 120px;
   background: var(--dark);
   overflow: hidden;
   color: var(--white);
@@ -244,12 +244,26 @@ body {
   z-index: 3;
   max-width: 650px;
   padding: 0;
-  margin-left: 0;
+  margin-left: 6%;
+}
+
+@media (max-width: 1200px) {
+  .hero-content {
+    margin-left: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    margin-left: 20px;
+    padding-top: 40px;
+  }
 }
 
 .hero-text {
   color: var(--white);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-align: left;
 }
 
 .hero-greeting {
@@ -264,7 +278,7 @@ body {
 
 .hero-name {
   display: block;
-  font-size: 80px;
+  font-size: 64px;
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: 24px;
