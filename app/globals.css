@@ -200,22 +200,22 @@ body {
    =================================== */
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 65vh;
+  /* Reduced from 100vh since text is gone */
   display: flex;
-  align-items: flex-start;
-  padding-top: 120px;
-  background: var(--dark);
+  align-items: center;
+  padding-top: 80px;
+  background: var(--white);
+  /* Changed from dark to white */
   overflow: hidden;
-  color: var(--white);
+  color: var(--dark);
 }
 
 @media (max-width: 768px) {
   .hero {
-    min-height: 50vh;
-    /* Reduce height on mobile to minimize gray space */
-    padding-top: 80px;
-    align-items: center;
-    /* Center align items vertically if needed, or keep flex-start */
+    min-height: 40vh;
+    /* Further reduced for mobile */
+    padding-top: 60px;
   }
 
   .hero-background img {
