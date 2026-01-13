@@ -25,14 +25,6 @@ export default function Hero({ locale, t }: HeroProps) {
                     <div className="hero-text">
                         <span className="hero-name">Róbert Ragnarsson</span>
                         <p className="hero-subtitle">{t.hero.subtitle}</p>
-                        <div className="hero-cta">
-                            <Link href={`/${locale}#stefna`} className="btn btn-primary">
-                                {t.hero.cta1}
-                            </Link>
-                            <a href="mailto:robbiragnars@gmail.com" className="btn btn-secondary">
-                                {t.hero.cta2}
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
