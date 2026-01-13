@@ -10,17 +10,15 @@ interface HeroProps {
 export default function Hero({ locale, t }: HeroProps) {
     return (
         <>
-            <section className="hero">
-                <div className="hero-background">
-                    <Image
-                        src="/images/Frame 14690.png"
-                        alt="Róbert Ragnarsson"
-                        fill
-                        style={{ objectFit: 'contain', objectPosition: 'center' }}
-                        priority
-                    />
-                </div>
-                <div className="hero-overlay"></div>
+            <section className="hero-banner">
+                <Image
+                    src="/images/Frame 14690.png"
+                    alt="Róbert Ragnarsson"
+                    width={1920}
+                    height={600}
+                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                    priority
+                />
             </section>
             <section className="quote-section">
                 <div className="container">
