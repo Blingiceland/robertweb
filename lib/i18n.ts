@@ -59,7 +59,7 @@ export const translations: Record<Locale, {
         },
         hero: {
             greeting: '',
-            subtitle: 'Frambjóðandi í prófkjöri Viðreisnar í Reykjavík',
+            subtitle: 'Róbert Ragnarsson er frambjóðandi í prófkjöri Viðreisnar í Reykjavík',
             slogan: 'Kominn er tími til raunverulegra breytinga. Það er eitt að tala um breytingar, annað að kunna og best er að hafa raunverulega gert.',
             cta1: 'Kynntu þér stefnuna',
             cta2: 'Hafa samband'

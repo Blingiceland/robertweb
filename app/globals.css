@@ -293,6 +293,7 @@ body {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* .hero-name is removed from HTML but keeping class just in case */
 .hero-name {
   display: block;
   font-size: 64px;
@@ -304,11 +305,15 @@ body {
 }
 
 .hero-subtitle {
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 32px;
+  /* Increased from 28px as it is now the main line */
+  font-weight: 800;
+  line-height: 1.3;
   margin-bottom: 30px;
-  color: var(--white);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: var(--primary);
+  /* Changed to primary orange as it replaces the name title */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  max-width: 600px;
 }
 
 @media (max-width: 768px) {
@@ -328,9 +333,12 @@ body {
   }
 
   .hero-subtitle {
-    font-size: 18px;
+    font-size: 24px;
     margin-bottom: 20px;
-    max-width: 250px;
+    max-width: 280px;
+    /* Constrain width to force wrapping */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    /* Stronger shadow for readability */
   }
 }
 
