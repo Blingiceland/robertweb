@@ -218,7 +218,7 @@ body {
   .hero-banner img {
     min-height: 200px;
     object-fit: cover;
-    object-position: center;
+    object-position: right center;
   }
 }
 
