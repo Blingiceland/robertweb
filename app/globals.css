@@ -209,6 +209,18 @@ body {
   height: auto;
 }
 
+@media (max-width: 768px) {
+  .hero-banner {
+    min-height: 200px;
+  }
+
+  .hero-banner img {
+    min-height: 200px;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
 
 
 .quote-section {
