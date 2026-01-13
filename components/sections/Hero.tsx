@@ -21,14 +21,10 @@ export default function Hero({ locale, t }: HeroProps) {
                     />
                 </div>
                 <div className="hero-overlay"></div>
-                <div className="hero-content">
-                    <div className="hero-text">
-                        <p className="hero-subtitle">{t.hero.subtitle}</p>
-                    </div>
-                </div>
             </section>
             <section className="quote-section">
                 <div className="container">
+                    <h1 className="hero-intro-text">{t.hero.subtitle}</h1>
                     <p className="quote-text">{t.hero.slogan}</p>
                 </div>
             </section>
