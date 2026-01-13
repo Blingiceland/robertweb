@@ -212,6 +212,7 @@ body {
 @media (max-width: 768px) {
   .hero-banner {
     min-height: 200px;
+    padding-top: 80px;
   }
 
   .hero-banner img {
