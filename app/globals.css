@@ -294,36 +294,31 @@ body {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.hero-bottom-quote {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 60px 24px 40px;
+.quote-section {
+  background: var(--white);
+  padding: 80px 24px;
   text-align: center;
-  z-index: 10;
-  background: linear-gradient(to top, rgba(83, 87, 90, 0.95) 0%, rgba(83, 87, 90, 0.6) 50%, rgba(83, 87, 90, 0) 100%);
+  position: relative;
+  z-index: 5;
 }
 
-.hero-bottom-quote p {
-  font-size: 22px;
+.quote-text {
+  font-size: 26px;
   font-weight: 500;
   font-style: italic;
-  color: var(--white);
-  max-width: 1000px;
+  color: var(--dark);
+  max-width: 900px;
   margin: 0 auto;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  line-height: 1.5;
 }
 
 @media (max-width: 768px) {
-  .hero-bottom-quote {
-    padding: 80px 20px 24px;
-    background: linear-gradient(to top, rgba(83, 87, 90, 1) 30%, rgba(83, 87, 90, 0.9) 70%, rgba(83, 87, 90, 0) 100%);
+  .quote-section {
+    padding: 60px 20px;
   }
 
-  .hero-bottom-quote p {
-    font-size: 16px;
-    line-height: 1.5;
+  .quote-text {
+    font-size: 20px;
   }
 }
 

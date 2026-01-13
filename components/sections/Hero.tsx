@@ -9,26 +9,30 @@ interface HeroProps {
 
 export default function Hero({ locale, t }: HeroProps) {
     return (
-        <section className="hero">
-            <div className="hero-background">
-                <Image
-                    src="/images/Frame 14690.png"
-                    alt="Róbert Ragnarsson"
-                    fill
-                    style={{ objectFit: 'contain', objectPosition: 'center' }}
-                    priority
-                />
-            </div>
-            <div className="hero-overlay"></div>
-            <div className="hero-content">
-                <div className="hero-text">
-                    <span className="hero-name">Róbert Ragnarsson</span>
-                    <p className="hero-subtitle">{t.hero.subtitle}</p>
+        <>
+            <section className="hero">
+                <div className="hero-background">
+                    <Image
+                        src="/images/Frame 14690.png"
+                        alt="Róbert Ragnarsson"
+                        fill
+                        style={{ objectFit: 'contain', objectPosition: 'center' }}
+                        priority
+                    />
                 </div>
-            </div>
-            <div className="hero-bottom-quote">
-                <p>{t.hero.slogan}</p>
-            </div>
-        </section>
+                <div className="hero-overlay"></div>
+                <div className="hero-content">
+                    <div className="hero-text">
+                        <span className="hero-name">Róbert Ragnarsson</span>
+                        <p className="hero-subtitle">{t.hero.subtitle}</p>
+                    </div>
+                </div>
+            </section>
+            <section className="quote-section">
+                <div className="container">
+                    <p className="quote-text">{t.hero.slogan}</p>
+                </div>
+            </section>
+        </>
     );
 }
