@@ -291,10 +291,10 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 40px 24px;
+  padding: 120px 24px 30px;
   text-align: center;
   z-index: 10;
-  background: linear-gradient(to top, rgba(83, 87, 90, 1) 0%, rgba(83, 87, 90, 0) 100%);
+  background: linear-gradient(to top, rgba(83, 87, 90, 1) 20%, rgba(83, 87, 90, 0.8) 60%, rgba(83, 87, 90, 0) 100%);
 }
 
 .hero-bottom-quote p {
@@ -305,6 +305,18 @@ body {
   max-width: 1000px;
   margin: 0 auto;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .hero-bottom-quote {
+    padding: 80px 20px 24px;
+    background: linear-gradient(to top, rgba(83, 87, 90, 1) 30%, rgba(83, 87, 90, 0.9) 70%, rgba(83, 87, 90, 0) 100%);
+  }
+
+  .hero-bottom-quote p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
 }
 
 .hero-cta {
