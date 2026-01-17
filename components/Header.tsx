@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+
 import { useState, useEffect } from 'react';
 import { Locale, locales, localeFlags, translations } from '@/lib/i18n';
 
@@ -26,15 +26,7 @@ export default function Header({ locale, t }: HeaderProps) {
         <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
             <div className="container">
                 <nav className="nav">
-                    <Link href={`/${locale}`} className="logo" style={{ gap: '12px' }}>
-                        <Image
-                            src="/images/Vidreisn-logo_regular_rgb-1024x765.png"
-                            alt="Viðreisn"
-                            width={180}
-                            height={135}
-                            className="logo-image"
-                        />
-                    </Link>
+
                     <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                         <li><Link href={`/${locale}#um-mig`} className="nav-link">{t.nav.about}</Link></li>
                         <li><Link href={`/${locale}#stefna`} className="nav-link">{t.nav.policy}</Link></li>
