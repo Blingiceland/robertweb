@@ -7,6 +7,7 @@ interface Article {
     title: string;
     date: string;
     excerpt: string;
+    showOnHomepage?: boolean;
 }
 
 interface ArticlesProps {
@@ -23,7 +24,7 @@ export default function Articles({ articles, t, locale }: ArticlesProps) {
                     <h2 className="section-title">{t.articles.title}</h2>
                 </div>
                 <div className="articles-grid">
-                    {articles.slice(0, 4).map((article) => (
+                    {articles.filter(a => a.showOnHomepage !== false).map((article) => (
                         <Link href={`/${locale}/greinar/${article.slug}`} key={article.id} className="article-card">
                             <span className="article-date">
                                 {new Date(article.date).toLocaleDateString('is-IS')}

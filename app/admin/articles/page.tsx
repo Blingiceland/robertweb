@@ -22,6 +22,7 @@ interface Article {
     is?: LocalizedContent;
     en?: LocalizedContent;
     pl?: LocalizedContent;
+    showOnHomepage?: boolean;
 }
 
 const emptyLocalizedContent: LocalizedContent = {
@@ -35,7 +36,8 @@ const emptyForm = {
     image: '/images/Frame 14687.png',
     is: { ...emptyLocalizedContent },
     en: { ...emptyLocalizedContent },
-    pl: { ...emptyLocalizedContent }
+    pl: { ...emptyLocalizedContent },
+    showOnHomepage: true
 };
 
 type Locale = 'is' | 'en' | 'pl';
@@ -122,7 +124,8 @@ export default function AdminArticles() {
             image: formData.image,
             is: formData.is,
             en: formData.en,
-            pl: formData.pl
+            pl: formData.pl,
+            showOnHomepage: formData.showOnHomepage
         };
 
         try {
@@ -181,7 +184,8 @@ export default function AdminArticles() {
             image: article.image,
             is: article.is || { title: article.title, excerpt: article.excerpt, content: article.content },
             en: article.en || { title: '', excerpt: '', content: '' },
-            pl: article.pl || { title: '', excerpt: '', content: '' }
+            pl: article.pl || { title: '', excerpt: '', content: '' },
+            showOnHomepage: article.showOnHomepage ?? true
         });
         setEditingId(article.id);
         setShowForm(true);
@@ -347,6 +351,16 @@ export default function AdminArticles() {
                                     onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                                     required
                                 />
+                            </div>
+                            <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <input
+                                    type="checkbox"
+                                    id="showOnHomepage"
+                                    checked={formData.showOnHomepage}
+                                    onChange={(e) => setFormData({ ...formData, showOnHomepage: e.target.checked })}
+                                    style={{ width: 'auto', margin: 0 }}
+                                />
+                                <label htmlFor="showOnHomepage" style={{ marginBottom: 0 }}>Sýna á forsíðu</label>
                             </div>
                             <div className="form-group">
                                 <label>Mynd</label>

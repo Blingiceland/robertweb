@@ -12,6 +12,7 @@ export interface Article {
     excerpt: string;
     content: string;
     image: string;
+    showOnHomepage?: boolean;
 }
 
 export interface NewsItem {
@@ -32,6 +33,7 @@ export interface Video {
     description: string;
     youtubeUrl: string;
     thumbnail: string;
+    showOnHomepage?: boolean;
 }
 
 const contentDir = path.join(process.cwd(), 'content');

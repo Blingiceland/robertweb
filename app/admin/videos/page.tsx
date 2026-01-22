@@ -11,6 +11,7 @@ interface Video {
     description: string;
     youtubeUrl: string;
     thumbnail: string;
+    showOnHomepage?: boolean;
 }
 
 const emptyForm = {
@@ -18,7 +19,8 @@ const emptyForm = {
     date: new Date().toISOString().split('T')[0],
     description: '',
     youtubeUrl: '',
-    thumbnail: ''
+    thumbnail: '',
+    showOnHomepage: true
 };
 
 export default function AdminVideos() {
@@ -92,7 +94,8 @@ export default function AdminVideos() {
             date: video.date,
             description: video.description,
             youtubeUrl: video.youtubeUrl,
-            thumbnail: video.thumbnail
+            thumbnail: video.thumbnail,
+            showOnHomepage: video.showOnHomepage ?? true
         });
         setEditingId(video.id);
         setShowForm(true);
@@ -171,6 +174,16 @@ export default function AdminVideos() {
                                     onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                                     required
                                 />
+                            </div>
+                            <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <input
+                                    type="checkbox"
+                                    id="showOnHomepageVideo"
+                                    checked={formData.showOnHomepage}
+                                    onChange={(e) => setFormData({ ...formData, showOnHomepage: e.target.checked })}
+                                    style={{ width: 'auto', margin: 0 }}
+                                />
+                                <label htmlFor="showOnHomepageVideo" style={{ marginBottom: 0 }}>Sýna á forsíðu</label>
                             </div>
                             <div className="form-group">
                                 <label>YouTube slóđ</label>

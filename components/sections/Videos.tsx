@@ -7,6 +7,7 @@ interface Video {
     description: string;
     youtubeUrl: string;
     thumbnail: string;
+    showOnHomepage?: boolean;
 }
 
 interface VideosProps {
@@ -27,7 +28,7 @@ export default function Videos({ videos, t }: VideosProps) {
                     <h2 className="section-title">{t.videos.title}</h2>
                 </div>
                 <div className="videos-grid">
-                    {videos.slice(0, 3).map((video) => {
+                    {videos.filter(v => v.showOnHomepage !== false).map((video) => {
                         const videoId = getYouTubeId(video.youtubeUrl);
                         const thumbnailUrl = video.thumbnail || (videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : '');
 
