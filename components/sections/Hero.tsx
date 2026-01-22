@@ -12,10 +12,10 @@ export default function Hero({ locale, t }: HeroProps) {
         <>
             <section className="hero-banner">
                 <Image
-                    src="/images/Róbert_2.jpg"
+                    src="/images/Frame 14690.png"
                     alt="Róbert Ragnarsson"
                     width={1920}
-                    height={1080}
+                    height={600}
                     style={{ width: '100%', height: 'auto', display: 'block' }}
                     priority
                 />

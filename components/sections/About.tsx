@@ -24,7 +24,7 @@ export default function About({ content }: AboutProps) {
                     </div>
                     <div className="about-image">
                         <Image
-                            src="/images/robert3.jpg"
+                            src="/images/Róbert_2.jpg"
                             alt="Róbert Ragnarsson - Frambjóðandi til borgarstjórnar Reykjavíkur"
                             width={400}
                             height={533}
